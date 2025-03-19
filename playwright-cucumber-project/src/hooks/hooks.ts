@@ -1,5 +1,7 @@
 import { Before, After, BeforeAll, AfterAll, setDefaultTimeout } from "@cucumber/cucumber";
 import { Browser, BrowserContext, Page, chromium } from "playwright";
+import reporter from "cucumber-html-reporter";
+import * as fs from "fs";
 
 let browser: Browser;
 let context: BrowserContext;
@@ -29,5 +31,40 @@ AfterAll(async function () {
   console.log("Closing browser...");
   await browser.close();
 });
+
+
+AfterAll(async function () {
+  const reportPath = "reports/cucumber-report.json";
+
+  let retries = 5;
+  while (!fs.existsSync(reportPath) || fs.statSync(reportPath).size === 0) {
+    console.warn("Waiting for cucumber-report.json to be generated...");
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    retries--;
+    if (retries === 0) {
+      console.error("❌ Error: cucumber-report.json is empty or missing!");
+      return;
+    }
+  }
+
+  console.log("✅ Report found. Generating HTML report...");
+
+  const options: reporter.Options = {
+    theme: "bootstrap",
+    jsonFile: reportPath,
+    output: "reports/cucumber-html-report.html",
+    reportSuiteAsScenarios: true,
+    launchReport: true,
+    metadata: {
+      "Test Environment": "QA",
+      "Browser": "Chromium",
+      "Platform": process.platform,
+      "Executed": "Local"
+    }
+  };
+
+  reporter.generate(options);
+});
+
 
 export { page };

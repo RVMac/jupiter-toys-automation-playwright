@@ -5,7 +5,7 @@ module.exports = {
         "src/step-definitions/*.ts"
       ],
       requireModule: ["ts-node/register"],
-      format: ["progress-bar", "json:reports/cucumber-report.json"],
+      format: ["progress-bar", "json:playwright-cucumber-project/reports/cucumber-report.json"],
       publishQuiet: true,
       paths: ["src/features/*.feature"],
       worldParameters: {}
