@@ -12,21 +12,18 @@ let globalPage: GlobalPage;
 let contactPage: ContactPage;
 
 Given("I am in Home page", async function () {
-  browser = await chromium.launch({ headless: true });
-  const context = await browser.newContext();
-  page = await context.newPage();
-  homePage = new HomePage(page);
+  homePage = new HomePage(this.page);
 
   await homePage.navigate();
 });
 
 When("I navigate to Contact page", async function () {
-  globalPage = new GlobalPage(page);
+  globalPage = new GlobalPage(this.page);
   await globalPage.clickContactNav();
 });
 
 When("I submit the feedback", async function () {
-  contactPage = new ContactPage(page);
+  contactPage = new ContactPage(this.page);
   await contactPage.clickSubmit();
 });
 

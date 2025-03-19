@@ -1,6 +1,9 @@
 module.exports = {
     default: {
-      require: ["src/step-definitions/*.ts"],
+      require: [
+        "src/hooks/hooks.ts",
+        "src/step-definitions/*.ts"
+      ],
       requireModule: ["ts-node/register"],
       format: ["progress-bar", "json:reports/cucumber-report.json"],
       publishQuiet: true,
