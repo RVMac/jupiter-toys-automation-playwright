@@ -25,6 +25,12 @@ jobs:
       - name: List current directory
         run: ls -la
 
+      - name: Set npm registry
+        run: npm config set registry https://registry.npmjs.org/
+      
+      - name: Clear npm cache
+        run: npm cache clean --force
+      
       - name: Move to Playwright Cucumber Project and Install Dependencies
         run: |
           if [ -d "playwright-cucumber-project" ]; then
