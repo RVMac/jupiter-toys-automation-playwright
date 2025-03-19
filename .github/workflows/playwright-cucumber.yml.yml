@@ -31,18 +31,21 @@ jobs:
       - name: Clear npm cache
         run: npm cache clean --force
       
-      - name: Move to Playwright Cucumber Project and Install Dependencies
+      - name: Move to Playwright Cucumber Project and Install Cucumber Dependencies explicit
         run: |
           if [ -d "playwright-cucumber-project" ]; then
             cd playwright-cucumber-project
             echo "Now inside: $(pwd)"
             ls -la
-            npm install
+            npm install @cucumber/cucumber --save-dev
           else
             echo "Directory 'playwright-cucumber-project' not found!"
             exit 1
           fi
-
+      
+      - name: Install other dependencies
+        run: npm install
+      
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
