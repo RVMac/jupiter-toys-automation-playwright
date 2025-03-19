@@ -11,3 +11,12 @@ Feature: Feedback Page
       | Smith    | mrsmith@gmail.com | This is my feedback message |
     Then header page error message will be removed
     And error messages from required fields will be removed
+
+  Scenario: Test Case 2 - User to successfully submit feedback form
+    Given I am in Home page
+    When I navigate to Contact page
+    And I populate the mandatory fields
+      | Forename | Email             | Message                     |
+      | Smith    | mrsmith@gmail.com | This is my feedback message |
+    And I submit the feedback
+    Then the feedback is submitted successfully

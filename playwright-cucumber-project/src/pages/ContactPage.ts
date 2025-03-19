@@ -14,6 +14,9 @@ export class ContactPage {
     private emailTextbox: Locator;
     private messageTextbox: Locator;
 
+    private progressBar: Locator;
+    private successHeaderMessage: Locator;
+
     constructor(page: Page) {
         this.page = page;
         
@@ -27,6 +30,9 @@ export class ContactPage {
         this.forenameTextbox =  page.getByRole('textbox', { name: 'Forename *' });
         this.emailTextbox = page.getByRole('textbox', { name: 'Email *' });
         this.messageTextbox = page.getByRole('textbox', { name: 'Message *' });
+
+        this.progressBar = page.locator('.bar');
+        this.successHeaderMessage = page.locator('div.alert.alert-success');
     }
   
     async clickSubmit() {
@@ -57,5 +63,10 @@ export class ContactPage {
         await this.forenameTextbox.fill(forename);
         await this.emailTextbox.fill(email);
         await this.messageTextbox.fill(message);
+    }
+
+    async checkSuccessfulSubmission(){
+        await this.progressBar.waitFor({ state: 'detached' , timeout: 30000});
+        await expect(this.successHeaderMessage).toBeVisible();
     }
 }

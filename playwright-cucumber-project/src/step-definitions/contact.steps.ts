@@ -17,7 +17,8 @@ Then("I can see error messages from required fields", async function () {
 });
 
 When('I populate the mandatory fields', async function (dataTable) {
-    const data = dataTable.hashes(); // Converts table rows into an array of objects
+  contactPage = new ContactPage(this.page);  
+  const data = dataTable.hashes(); // Converts table rows into an array of objects
 
     for (const row of data) {
         await contactPage.fillRequiredFields(row.Forename, row.Email, row.Message);
@@ -31,3 +32,7 @@ Then('header page error message will be removed', async function () {
 Then('error messages from required fields will be removed', async function () {
     await contactPage.checkRequiredFieldsErrorMessages(false);
   });
+
+Then('the feedback is submitted successfully', async function () {
+  await contactPage.checkSuccessfulSubmission();
+});
