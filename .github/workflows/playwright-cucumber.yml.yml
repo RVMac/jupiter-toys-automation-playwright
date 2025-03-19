@@ -37,7 +37,7 @@ jobs:
             cd playwright-cucumber-project
             echo "Now inside: $(pwd)"
             ls -la
-            npm install @cucumber/cucumber --save-dev
+            npm install -g cucumber
           else
             echo "Directory 'playwright-cucumber-project' not found!"
             exit 1
