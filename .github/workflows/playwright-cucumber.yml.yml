@@ -43,8 +43,17 @@ jobs:
             exit 1
           fi
       
-      - name: Install other dependencies
-        run: npm install
+      - name: Move to Playwright Cucumber Project and Install other Dependencies
+        run: |
+          if [ -d "playwright-cucumber-project" ]; then
+            cd playwright-cucumber-project
+            echo "Now inside: $(pwd)"
+            ls -la
+            npm install
+          else
+            echo "Directory 'playwright-cucumber-project' not found!"
+            exit 1
+          fi
       
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
