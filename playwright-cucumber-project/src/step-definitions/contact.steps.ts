@@ -18,7 +18,7 @@ Then("I can see error messages from required fields", async function () {
 
 When('I populate the mandatory fields', async function (dataTable) {
   contactPage = new ContactPage(this.page);  
-  const data = dataTable.hashes(); // Converts table rows into an array of objects
+  const data = dataTable.hashes();
 
     for (const row of data) {
         await contactPage.fillRequiredFields(row.Forename, row.Email, row.Message);
