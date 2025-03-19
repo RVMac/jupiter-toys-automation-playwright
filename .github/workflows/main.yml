@@ -21,7 +21,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18
-
+      - name: navigate to playwright-cucumber-project
+        run: cd .\playwright-cucumber-project\
+      
       - name: Install Dependencies
         run: npm install
 
@@ -36,7 +38,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: cucumber-json-report
-          path: reports/cucumber-report.json
+          path: playwright-cucumber-project/reports/cucumber-report.json
           retention-days: 7
 
       - name: Generate HTML Report
@@ -48,5 +50,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: cucumber-html-report
-          path: reports/cucumber-report.html
+          path: playwright-cucumber-project/reports/cucumber-report.html
           retention-days: 7
