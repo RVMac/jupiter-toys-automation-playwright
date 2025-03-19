@@ -6,3 +6,8 @@ Feature: Feedback Page
       And I submit the feedback
     Then I can see header page error messages
       And I can see error messages from required fields
+    When I populate the mandatory fields
+      | Forename | Email             | Message                     |
+      | Smith    | mrsmith@gmail.com | This is my feedback message |
+    Then header page error message will be removed
+    And error messages from required fields will be removed
