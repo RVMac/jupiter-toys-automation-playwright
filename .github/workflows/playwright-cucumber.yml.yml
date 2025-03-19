@@ -22,11 +22,19 @@ jobs:
         with:
           node-version: 18
 
-      - name: navigate to playwright-cucumber-project
+      - name: List current directory
+        run: ls -la
+
+      - name: Move to Playwright Cucumber Project folder
         run: |
-          cd .\playwright-cucumber-project\  # Change 'some-directory' to your target directory
-          echo "Now inside: $(pwd)"
-          ls -la
+          if [ -d "playwright-cucumber-project" ]; then
+            cd playwright-cucumber-project
+            echo "Now inside: $(pwd)"
+            ls -la
+          else
+            echo "Directory 'playwright-cucumber-project' not found!"
+            exit 1
+          fi
       
       - name: Install Dependencies
         run: npm install
