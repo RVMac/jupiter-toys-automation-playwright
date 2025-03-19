@@ -54,12 +54,30 @@ jobs:
             echo "Directory 'playwright-cucumber-project' not found!"
             exit 1
           fi
-      
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
 
-      - name: Run Cucumber Tests
-        run: npx cucumber-js
+      - name: Move to Playwright Cucumber Project and Install Playwright Browsers
+        run: |
+          if [ -d "playwright-cucumber-project" ]; then
+            cd playwright-cucumber-project
+            echo "Now inside: $(pwd)"
+            ls -la
+            npx playwright install --with-deps
+          else
+            echo "Directory 'playwright-cucumber-project' not found!"
+            exit 1
+          fi  
+
+      - name: Move to Playwright Cucumber Project and Run Cucumber Tests
+        run: |
+          if [ -d "playwright-cucumber-project" ]; then
+            cd playwright-cucumber-project
+            echo "Now inside: $(pwd)"
+            ls -la
+            npx cucumber-js
+          else
+            echo "Directory 'playwright-cucumber-project' not found!"
+            exit 1
+          fi
 
       - name: Upload JSON Test Report
         if: always()
