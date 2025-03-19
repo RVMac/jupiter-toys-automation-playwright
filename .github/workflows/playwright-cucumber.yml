@@ -78,6 +78,18 @@ jobs:
             echo "Directory 'playwright-cucumber-project' not found!"
             exit 1
           fi
+      
+      - name: Move to Playwright Cucumber Project and Merge and Generate HTML Report
+        run: |
+          if [ -d "playwright-cucumber-project" ]; then
+            cd playwright-cucumber-project
+            echo "Now inside: $(pwd)"
+            ls -la
+            run: npx ts-node src/generateReport.ts
+          else
+            echo "Directory 'playwright-cucumber-project' not found!"
+            exit 1
+          fi
 
       - name: Upload JSON Test Report
         if: always()
